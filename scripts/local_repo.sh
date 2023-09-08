@@ -38,7 +38,7 @@ repo () {
         repo-add "$parent"/repo/repo.db.tar.gz "$file"
     done
     cd "$parent"
-    sed -i "101 s|Server.*|Server = file://$(pwd)/repo|" "$parent"/configs/releng/pacman.conf
+    sed -i "101 s|Server.*|Server = file://$(pwd)/repo|" "$parent"/archiso-base/configs/releng/pacman.conf
 }
 
 # Actually do stuffs
