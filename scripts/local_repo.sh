@@ -27,7 +27,7 @@ fetch () {
 build () {
     for dir in "$parent"/build/*; do
         cd "$dir"
-        makepkg -s
+        env EUID=1 makepkg -s
         mv "$dir"/*.pkg.tar.zst "$parent"/repo
     done
 }
