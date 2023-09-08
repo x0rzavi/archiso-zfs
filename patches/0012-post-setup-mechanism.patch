@@ -73,7 +73,7 @@ index 0000000..fb38bbb
 +cat >>/etc/pacman.conf << EOF
 +
 +[chaotic-aur]
-+Include = /etc/pacman.d/chaotic-mirrorlist 
++Include = /etc/pacman.d/chaotic-mirrorlist
 +EOF
 +    echo "chaotic-aur repo added!"
 +}
