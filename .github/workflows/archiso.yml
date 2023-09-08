@@ -1,0 +1,53 @@
+name: Build ArchISO
+on:
+  # push:
+  workflow_dispatch:
+  # schedule:
+  #   - cron:  '0 0 */7 * *'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container:
+      image: archlinux:latest
+      options: --privileged 
+    steps:
+      - name: Checkout files
+        uses: actions/checkout@v4
+
+      - name: Edit pacman config
+        run: sed -i 's/#ParallelDownloads.*/ParallelDownloads = 20/' /etc/pacman.conf
+
+      - name: Init pacman keyring
+        run: pacman-key --init
+
+      - name: Add archzfs repo
+        run: |
+          pacman-key -r DDF7DB817396A49B2A2723F7403BD972F75D9D76
+          pacman-key --lsign-key DDF7DB817396A49B2A2723F7403BD972F75D9D76
+          echo -e "\n[archzfs-testing]\nServer = https://archzfs.com/\$repo/\$arch" >> /etc/pacman.conf
+
+      - name: Add chaotic-aur repo
+        run: |
+          pacman-key --recv-key 3056513887B78AEB --keyserver keyserver.ubuntu.com
+          pacman-key --lsign-key 3056513887B78AEB
+          pacman -U 'https://cdn-mirror.chaotic.cx/chaotic-aur/chaotic-keyring.pkg.tar.zst' 'https://cdn-mirror.chaotic.cx/chaotic-aur/chaotic-mirrorlist.pkg.tar.zst' --noconfirm
+          echo -e "\n[chaotic-aur]\nInclude = /etc/pacman.d/chaotic-mirrorlist" >> /etc/pacman.conf
+
+      - name: Build ArchISO
+        run: |
+          pacman -Syyu archiso --noconfirm
+          time ./scripts/build.sh
+
+      # - name: Create release tags
+      #   run: |
+      #     echo "filePath=out/$(ls out)" >> $GITHUB_ENV
+      #     echo "fileName=$(ls out)" >> $GITHUB_ENV
+      #     echo "fileTag=$(date +%d-%m-%Y-%H-%M)" >> $GITHUB_ENV
+      #
+      # - name: Release ArchISO
+      #   uses: softprops/action-gh-release@v1
+      #   with:
+      #     files: ${{ env.filePath }}
+      #     name: ${{ env.fileName }}
+      #     tag_name: ${{ env.fileTag }}
