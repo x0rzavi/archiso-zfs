@@ -1,0 +1,36 @@
+From 13c7d9103cdcf42744414e0ee7b6da7a68ebe291 Mon Sep 17 00:00:00 2001
+From: Avishek Sen <x0rzavi@gmail.com>
+Date: Wed, 6 Sep 2023 12:40:33 +0530
+Subject: [PATCH 13/18] customize ISO metadata
+
+Signed-off-by: Avishek Sen <x0rzavi@gmail.com>
+---
+ configs/releng/profiledef.sh | 12 ++++++++----
+ 1 file changed, 8 insertions(+), 4 deletions(-)
+
+diff --git a/configs/releng/profiledef.sh b/configs/releng/profiledef.sh
+index a4d9445..b04e68b 100644
+--- a/configs/releng/profiledef.sh
++++ b/configs/releng/profiledef.sh
+@@ -1,10 +1,14 @@
+ #!/usr/bin/env bash
+ # shellcheck disable=SC2034
+ 
+-iso_name="archlinux"
+-iso_label="ARCH_$(date --date="@${SOURCE_DATE_EPOCH:-$(date +%s)}" +%Y%m)"
+-iso_publisher="Arch Linux <https://archlinux.org>"
+-iso_application="Arch Linux Live/Rescue CD"
++# iso_name="archlinux"
++iso_name="archlinux-zfs"
++# iso_label="ARCH_$(date --date="@${SOURCE_DATE_EPOCH:-$(date +%s)}" +%Y%m)"
++iso_label="ARCH_ZFS_$(date --date="@${SOURCE_DATE_EPOCH:-$(date +%s)}" +%Y%m)"
++# iso_publisher="Arch Linux <https://archlinux.org>"
++iso_publisher="Avishek Sen <https://github.com/x0rzavi>"
++# iso_application="Arch Linux Live/Rescue CD"
++iso_application="Arch Linux Live/Rescue CD with ZFS support"
+ iso_version="$(date --date="@${SOURCE_DATE_EPOCH:-$(date +%s)}" +%Y.%m.%d)"
+ install_dir="arch"
+ buildmodes=('iso')
+-- 
+2.42.0
+

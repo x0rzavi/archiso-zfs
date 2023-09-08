@@ -1,0 +1,37 @@
+From 90262b73d5ad31f269a00c7900af9fe3ce6c76cd Mon Sep 17 00:00:00 2001
+From: Avishek Sen <x0rzavi@gmail.com>
+Date: Tue, 5 Sep 2023 23:44:49 +0530
+Subject: [PATCH 02/18] zstd compression
+
+Signed-off-by: Avishek Sen <x0rzavi@gmail.com>
+---
+ configs/releng/airootfs/etc/mkinitcpio.conf.d/archiso.conf | 3 ++-
+ configs/releng/profiledef.sh                               | 3 ++-
+ 2 files changed, 4 insertions(+), 2 deletions(-)
+
+diff --git a/configs/releng/airootfs/etc/mkinitcpio.conf.d/archiso.conf b/configs/releng/airootfs/etc/mkinitcpio.conf.d/archiso.conf
+index b4b3095..3c4d6c1 100644
+--- a/configs/releng/airootfs/etc/mkinitcpio.conf.d/archiso.conf
++++ b/configs/releng/airootfs/etc/mkinitcpio.conf.d/archiso.conf
+@@ -1,2 +1,3 @@
+ HOOKS=(base udev modconf kms memdisk archiso archiso_loop_mnt archiso_pxe_common archiso_pxe_nbd archiso_pxe_http archiso_pxe_nfs block filesystems keyboard)
+-COMPRESSION="xz"
++# COMPRESSION="xz"
++COMPRESSION="zstd"
+diff --git a/configs/releng/profiledef.sh b/configs/releng/profiledef.sh
+index 5cba1b5..495aa9c 100644
+--- a/configs/releng/profiledef.sh
++++ b/configs/releng/profiledef.sh
+@@ -14,7 +14,8 @@ bootmodes=('bios.syslinux.mbr' 'bios.syslinux.eltorito'
+ arch="x86_64"
+ pacman_conf="pacman.conf"
+ airootfs_image_type="squashfs"
+-airootfs_image_tool_options=('-comp' 'xz' '-Xbcj' 'x86' '-b' '1M' '-Xdict-size' '1M')
++# airootfs_image_tool_options=('-comp' 'xz' '-Xbcj' 'x86' '-b' '1M' '-Xdict-size' '1M')
++airootfs_image_tool_options=('-comp' 'zstd' '-Xcompression-level' '1' '-b' '1M')
+ file_permissions=(
+   ["/etc/shadow"]="0:0:400"
+   ["/root"]="0:0:750"
+-- 
+2.42.0
+

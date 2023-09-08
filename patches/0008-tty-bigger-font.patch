@@ -1,0 +1,34 @@
+From 6535fd447dc3e54f31c47df157005c1006f1083a Mon Sep 17 00:00:00 2001
+From: Avishek Sen <x0rzavi@gmail.com>
+Date: Wed, 6 Sep 2023 09:35:10 +0530
+Subject: [PATCH 08/18] tty bigger font
+
+Signed-off-by: Avishek Sen <x0rzavi@gmail.com>
+---
+ configs/releng/airootfs/etc/vconsole.conf (new) | 1 +
+ configs/releng/profiledef.sh                    | 1 +
+ 2 files changed, 2 insertions(+)
+
+diff --git a/configs/releng/airootfs/etc/vconsole.conf b/configs/releng/airootfs/etc/vconsole.conf
+new file mode 100644
+index 0000000..cd6516a
+--- /dev/null
++++ b/configs/releng/airootfs/etc/vconsole.conf
+@@ -0,0 +1 @@
++FONT=ter-v18b
+\ No newline at end of file
+diff --git a/configs/releng/profiledef.sh b/configs/releng/profiledef.sh
+index b959e33..355e9f1 100644
+--- a/configs/releng/profiledef.sh
++++ b/configs/releng/profiledef.sh
+@@ -18,6 +18,7 @@ airootfs_image_type="squashfs"
+ airootfs_image_tool_options=('-comp' 'zstd' '-Xcompression-level' '1' '-b' '1M')
+ file_permissions=(
+   ["/etc/shadow"]="0:0:400"
++  ["/etc/vconsole.conf"]="0:0:0644"
+   ["/root"]="0:0:750"
+   ["/root/.ssh"]="0:0:0700"
+   ["/root/.ssh/authorized_keys"]="0:0:0600"
+-- 
+2.42.0
+

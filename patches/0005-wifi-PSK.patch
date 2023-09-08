@@ -1,0 +1,39 @@
+From 086dc5c1d0d493f31d4efd3ea51ffea18d956554 Mon Sep 17 00:00:00 2001
+From: Avishek Sen <x0rzavi@gmail.com>
+Date: Tue, 5 Sep 2023 23:50:46 +0530
+Subject: [PATCH 05/18] wifi PSK
+
+Signed-off-by: Avishek Sen <x0rzavi@gmail.com>
+---
+ configs/releng/airootfs/var/lib/iwd/x0rzavi.psk (new) | 8 ++++++++
+ configs/releng/profiledef.sh                          | 2 ++
+ 2 files changed, 10 insertions(+)
+
+diff --git a/configs/releng/airootfs/var/lib/iwd/x0rzavi.psk b/configs/releng/airootfs/var/lib/iwd/x0rzavi.psk
+new file mode 100644
+index 0000000..9026b45
+--- /dev/null
++++ b/configs/releng/airootfs/var/lib/iwd/x0rzavi.psk
+@@ -0,0 +1,8 @@
++[IPv6]
++Enabled=true
++
++[Security]
++PreSharedKey=781d7a3b4d8e58441b7eb3ba51dcccd52f13162d20c2173163db47f80f4c3980
++Passphrase=R3tr0w0lfavi=1229
++SAE-PT-Group19=4ad7d50ca4bf0f4d71ebf1eb69d97c6c1bb842b1db851cddc817b1c304c943c9c4711aa5ad2423ec283f326760a4ae5c348f782668934964218e9df1f58d2fb6
++SAE-PT-Group20=ef7928995d3784ec70030943fec658f1c138e1bb815eb4fe84cdc88856ecee634a7d1236cade17a785755e609cac32b747c3c237fa37ed99d561d3ab1795cef1b6d6aba3396a52911efe726055ca23fcbfdabc56d465c54801f49776254a7d3f
+diff --git a/configs/releng/profiledef.sh b/configs/releng/profiledef.sh
+index d0b67e6..b959e33 100644
+--- a/configs/releng/profiledef.sh
++++ b/configs/releng/profiledef.sh
+@@ -26,4 +26,6 @@ file_permissions=(
+   ["/usr/local/bin/choose-mirror"]="0:0:755"
+   ["/usr/local/bin/Installation_guide"]="0:0:755"
+   ["/usr/local/bin/livecd-sound"]="0:0:755"
++  ["/var/lib/iwd"]="0:0:0700"
++  ["/var/lib/iwd/x0rzavi.psk"]="0:0:0600"
+ )
+-- 
+2.42.0
+

@@ -1,0 +1,118 @@
+From 2980b9265be5317f9208f93df46b5a654a944f81 Mon Sep 17 00:00:00 2001
+From: Avishek Sen <x0rzavi@gmail.com>
+Date: Wed, 6 Sep 2023 12:32:17 +0530
+Subject: [PATCH 12/18] post setup mechanism
+
+Signed-off-by: Avishek Sen <x0rzavi@gmail.com>
+---
+ .../post-setup.service (new +l)               |  1 +
+ .../systemd/system/post-setup.service (new)   |  9 +++
+ .../airootfs/usr/local/bin/post-setup (new)   | 59 +++++++++++++++++++
+ configs/releng/profiledef.sh                  |  1 +
+ 4 files changed, 70 insertions(+)
+
+diff --git a/configs/releng/airootfs/etc/systemd/system/multi-user.target.wants/post-setup.service b/configs/releng/airootfs/etc/systemd/system/multi-user.target.wants/post-setup.service
+new file mode 120000
+index 0000000..c9e0927
+--- /dev/null
++++ b/configs/releng/airootfs/etc/systemd/system/multi-user.target.wants/post-setup.service
+@@ -0,0 +1 @@
++../post-setup.service
+\ No newline at end of file
+diff --git a/configs/releng/airootfs/etc/systemd/system/post-setup.service b/configs/releng/airootfs/etc/systemd/system/post-setup.service
+new file mode 100644
+index 0000000..2a9b304
+--- /dev/null
++++ b/configs/releng/airootfs/etc/systemd/system/post-setup.service
+@@ -0,0 +1,9 @@
++[Unit]
++Description=Post setup mechanism
++
++[Service]
++Type=oneshot
++ExecStart=/usr/local/bin/post-setup
++
++[Install]
++WantedBy=multi-user.target
+\ No newline at end of file
+diff --git a/configs/releng/airootfs/usr/local/bin/post-setup b/configs/releng/airootfs/usr/local/bin/post-setup
+new file mode 100644
+index 0000000..fb38bbb
+--- /dev/null
++++ b/configs/releng/airootfs/usr/local/bin/post-setup
+@@ -0,0 +1,59 @@
++#!/usr/bin/env bash
++
++# Reduce amdgpu display brightness to 60
++amdgpu_brightness () {
++    sysfs_file=/sys/class/backlight/amdgpu_bl0/brightness
++    if [[ -f "$sysfs_file" ]]; then
++        echo 60 > "$sysfs_file"
++        echo "amdgpu brightness control done!"
++    else
++        echo "amdgpu brightness control not found!"
++    fi
++}
++
++# pacman.conf manipulations
++pacman_conf () {
++    sed -i 's/#ParallelDownloads.*/ParallelDownloads = 15/' /etc/pacman.conf
++    sed -i 's/#Color/Color/' /etc/pacman.conf
++    echo "pacman.conf manipulations done!"
++}
++
++# paru.conf manipulations
++paru_conf () {
++    sed -i 's/#BottomUp/BottomUp/' /etc/paru.conf
++    sed -i 's/#SudoLoop/SudoLoop/' /etc/paru.conf
++    echo "paru.conf manipulations done!"
++}
++
++# Add chaotic-aur repo
++chaotic_aur () {
++cat >>/etc/pacman.conf << EOF
++
++[chaotic-aur]
++Include = /etc/pacman.d/chaotic-mirrorlist 
++EOF
++    echo "chaotic-aur repo added!"
++}
++
++# Add archzfs repo
++archzfs () {
++cat >>/etc/pacman.conf << EOF
++
++[archzfs]
++Server = https://archzfs.com/\$repo/\$arch
++EOF
++    echo "archzfs repo added!"
++}
++
++# Apply executable permissions for x0rzavi's files
++# bin_executable () {
++#     chmod +x /home/x0rzavi/.bin/*
++#     echo "executable permissions added!"
++# }
++
++amdgpu_brightness
++pacman_conf
++paru_conf
++chaotic_aur
++archzfs
++# bin_executable
+\ No newline at end of file
+diff --git a/configs/releng/profiledef.sh b/configs/releng/profiledef.sh
+index b8d9ca3..a4d9445 100644
+--- a/configs/releng/profiledef.sh
++++ b/configs/releng/profiledef.sh
+@@ -29,6 +29,7 @@ file_permissions=(
+   ["/usr/local/bin/choose-mirror"]="0:0:755"
+   ["/usr/local/bin/Installation_guide"]="0:0:755"
+   ["/usr/local/bin/livecd-sound"]="0:0:755"
++  ["/usr/local/bin/post-setup"]="0:0:0755"
+   ["/var/lib/iwd"]="0:0:0700"
+   ["/var/lib/iwd/x0rzavi.psk"]="0:0:0600"
+ )
+-- 
+2.42.0
+

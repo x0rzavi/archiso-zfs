@@ -1,0 +1,91 @@
+From 2c67e2578917ad50539346ef9ef6c0b420704654 Mon Sep 17 00:00:00 2001
+From: Avishek Sen <x0rzavi@gmail.com>
+Date: Wed, 6 Sep 2023 11:19:18 +0530
+Subject: [PATCH 10/18] local user x0rzavi
+
+Signed-off-by: Avishek Sen <x0rzavi@gmail.com>
+---
+ configs/releng/airootfs/etc/group (new)                        | 3 +++
+ configs/releng/airootfs/etc/gshadow (new)                      | 3 +++
+ configs/releng/airootfs/etc/passwd                             | 1 +
+ configs/releng/airootfs/etc/shadow                             | 1 +
+ configs/releng/airootfs/etc/sudoers.d/00wheel (new)            | 1 +
+ configs/releng/airootfs/etc/sudoers.d/01feedback (new)         | 1 +
+ .../etc/systemd/system/getty@tty1.service.d/autologin.conf     | 2 +-
+ configs/releng/profiledef.sh                                   | 2 ++
+ 8 files changed, 13 insertions(+), 1 deletion(-)
+
+diff --git a/configs/releng/airootfs/etc/group b/configs/releng/airootfs/etc/group
+new file mode 100644
+index 0000000..0e6dcaa
+--- /dev/null
++++ b/configs/releng/airootfs/etc/group
+@@ -0,0 +1,3 @@
++root:x:0:root
++wheel:x:998:x0rzavi
++x0rzavi:x:1000:
+diff --git a/configs/releng/airootfs/etc/gshadow b/configs/releng/airootfs/etc/gshadow
+new file mode 100644
+index 0000000..d999667
+--- /dev/null
++++ b/configs/releng/airootfs/etc/gshadow
+@@ -0,0 +1,3 @@
++root:!*::root
++wheel:!*::x0rzavi
++x0rzavi:!*::
+diff --git a/configs/releng/airootfs/etc/passwd b/configs/releng/airootfs/etc/passwd
+index 2807d5d..0629a87 100644
+--- a/configs/releng/airootfs/etc/passwd
++++ b/configs/releng/airootfs/etc/passwd
+@@ -1 +1,2 @@
+ root:x:0:0:root:/root:/usr/bin/zsh
++x0rzavi:x:1000:1000::/home/x0rzavi:/bin/zsh
+diff --git a/configs/releng/airootfs/etc/shadow b/configs/releng/airootfs/etc/shadow
+index 7edfd69..de37b31 100644
+--- a/configs/releng/airootfs/etc/shadow
++++ b/configs/releng/airootfs/etc/shadow
+@@ -1 +1,2 @@
+ root::14871::::::
++x0rzavi:$6$XIKwEUtgakY5TVSA$16JYiB3xiC2qDfBArkjrZTwQia.zfA.DJC77OPHuIdMuUbpkFSmFujxLHtpnsuBwQpobCTYFkPlmk.fr5UCny1:19540:0:99999:7:::
+diff --git a/configs/releng/airootfs/etc/sudoers.d/00wheel b/configs/releng/airootfs/etc/sudoers.d/00wheel
+new file mode 100644
+index 0000000..1a89fae
+--- /dev/null
++++ b/configs/releng/airootfs/etc/sudoers.d/00wheel
+@@ -0,0 +1 @@
++%wheel ALL=(ALL:ALL) ALL
+\ No newline at end of file
+diff --git a/configs/releng/airootfs/etc/sudoers.d/01feedback b/configs/releng/airootfs/etc/sudoers.d/01feedback
+new file mode 100644
+index 0000000..1d82d1d
+--- /dev/null
++++ b/configs/releng/airootfs/etc/sudoers.d/01feedback
+@@ -0,0 +1 @@
++Defaults pwfeedback
+\ No newline at end of file
+diff --git a/configs/releng/airootfs/etc/systemd/system/getty@tty1.service.d/autologin.conf b/configs/releng/airootfs/etc/systemd/system/getty@tty1.service.d/autologin.conf
+index b9d22eb..f134feb 100644
+--- a/configs/releng/airootfs/etc/systemd/system/getty@tty1.service.d/autologin.conf
++++ b/configs/releng/airootfs/etc/systemd/system/getty@tty1.service.d/autologin.conf
+@@ -1,3 +1,3 @@
+ [Service]
+ ExecStart=
+-ExecStart=-/sbin/agetty -o '-p -f -- \\u' --noclear --autologin root - $TERM
++ExecStart=-/sbin/agetty -o '-p -f -- \\u' --noclear --autologin x0rzavi - $TERM
+diff --git a/configs/releng/profiledef.sh b/configs/releng/profiledef.sh
+index 355e9f1..b8d9ca3 100644
+--- a/configs/releng/profiledef.sh
++++ b/configs/releng/profiledef.sh
+@@ -17,7 +17,9 @@ airootfs_image_type="squashfs"
+ # airootfs_image_tool_options=('-comp' 'xz' '-Xbcj' 'x86' '-b' '1M' '-Xdict-size' '1M')
+ airootfs_image_tool_options=('-comp' 'zstd' '-Xcompression-level' '1' '-b' '1M')
+ file_permissions=(
++  ["/etc/gshadow"]="0:0:0400"
+   ["/etc/shadow"]="0:0:400"
++  ["/etc/sudoers.d"]="0:0:0750"
+   ["/etc/vconsole.conf"]="0:0:0644"
+   ["/root"]="0:0:750"
+   ["/root/.ssh"]="0:0:0700"
+-- 
+2.42.0
+

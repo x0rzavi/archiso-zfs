@@ -1,0 +1,32 @@
+From 2a1714aa539b67638b75478c65979fe14d58675c Mon Sep 17 00:00:00 2001
+From: Avishek Sen <x0rzavi@gmail.com>
+Date: Wed, 6 Sep 2023 09:11:07 +0530
+Subject: [PATCH 07/18] disable reflector
+
+Signed-off-by: Avishek Sen <x0rzavi@gmail.com>
+---
+ configs/releng/airootfs/etc/pacman.d/mirrorlist (new)          | 3 +++
+ .../system/multi-user.target.wants/reflector.service (gone)    | 1 -
+ 2 files changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/configs/releng/airootfs/etc/pacman.d/mirrorlist b/configs/releng/airootfs/etc/pacman.d/mirrorlist
+new file mode 100644
+index 0000000..a8dd370
+--- /dev/null
++++ b/configs/releng/airootfs/etc/pacman.d/mirrorlist
+@@ -0,0 +1,3 @@
++Server = https://mirror.osbeck.com/archlinux/$repo/os/$arch
++Server = https://cloudflaremirrors.com/archlinux/$repo/os/$arch
++Server = https://archlinux.mailtunnel.eu/$repo/os/$arch
+\ No newline at end of file
+diff --git a/configs/releng/airootfs/etc/systemd/system/multi-user.target.wants/reflector.service b/configs/releng/airootfs/etc/systemd/system/multi-user.target.wants/reflector.service
+deleted file mode 120000
+index d372729..0000000
+--- a/configs/releng/airootfs/etc/systemd/system/multi-user.target.wants/reflector.service
++++ /dev/null
+@@ -1 +0,0 @@
+-/usr/lib/systemd/system/reflector.service
+\ No newline at end of file
+-- 
+2.42.0
+

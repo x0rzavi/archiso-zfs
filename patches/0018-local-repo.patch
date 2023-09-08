@@ -1,0 +1,27 @@
+From 729e693a5783855d4a328b81272909f715864448 Mon Sep 17 00:00:00 2001
+From: Avishek Sen <x0rzavi@gmail.com>
+Date: Fri, 8 Sep 2023 18:29:27 +0530
+Subject: [PATCH 18/18] local repo
+
+Signed-off-by: Avishek Sen <x0rzavi@gmail.com>
+---
+ configs/releng/pacman.conf | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/configs/releng/pacman.conf b/configs/releng/pacman.conf
+index 78caec8..338d336 100644
+--- a/configs/releng/pacman.conf
++++ b/configs/releng/pacman.conf
+@@ -96,6 +96,9 @@ Include = /etc/pacman.d/mirrorlist
+ #[custom]
+ #SigLevel = Optional TrustAll
+ #Server = file:///home/custompkgs
++[repo]
++SigLevel = Optional TrustAll
++Server = file:///home/x0rzavi/Projects/archiso-zfs/repo
+ 
+ [chaotic-aur]
+ Include = /etc/pacman.d/chaotic-mirrorlist
+-- 
+2.42.0
+

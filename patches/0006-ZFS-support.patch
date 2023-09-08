@@ -1,0 +1,43 @@
+From 832afffae3c332d5e1b310b5c9bdab6d29aa7165 Mon Sep 17 00:00:00 2001
+From: Avishek Sen <x0rzavi@gmail.com>
+Date: Tue, 5 Sep 2023 23:53:28 +0530
+Subject: [PATCH 06/18] ZFS support
+
+Signed-off-by: Avishek Sen <x0rzavi@gmail.com>
+---
+ configs/releng/packages.x86_64 | 4 +++-
+ configs/releng/pacman.conf     | 6 ++++++
+ 2 files changed, 9 insertions(+), 1 deletion(-)
+
+diff --git a/configs/releng/packages.x86_64 b/configs/releng/packages.x86_64
+index 2f8fda0..519b950 100644
+--- a/configs/releng/packages.x86_64
++++ b/configs/releng/packages.x86_64
+@@ -129,4 +129,6 @@ zsh
+ 
+ # needs chaotic-AUR GPG keys on build machine
+ linux-cachyos
+-linux-cachyos-headers
+\ No newline at end of file
++linux-cachyos-headers
++
++archzfs-dkms-git
+\ No newline at end of file
+diff --git a/configs/releng/pacman.conf b/configs/releng/pacman.conf
+index f382fab..b55f799 100644
+--- a/configs/releng/pacman.conf
++++ b/configs/releng/pacman.conf
+@@ -96,3 +96,9 @@ Include = /etc/pacman.d/mirrorlist
+ #[custom]
+ #SigLevel = Optional TrustAll
+ #Server = file:///home/custompkgs
++
++[chaotic-aur]
++Include = /etc/pacman.d/chaotic-mirrorlist
++
++[archzfs]
++Server = https://archzfs.com/$repo/$arch
+\ No newline at end of file
+-- 
+2.42.0
+

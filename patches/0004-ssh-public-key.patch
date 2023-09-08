@@ -1,0 +1,35 @@
+From a7cbd5683507921830ab2d4959ee17a73a368179 Mon Sep 17 00:00:00 2001
+From: Avishek Sen <x0rzavi@gmail.com>
+Date: Tue, 5 Sep 2023 23:48:22 +0530
+Subject: [PATCH 04/18] ssh public key
+
+Signed-off-by: Avishek Sen <x0rzavi@gmail.com>
+---
+ configs/releng/airootfs/root/.ssh/authorized_keys (new) | 1 +
+ configs/releng/profiledef.sh                            | 2 ++
+ 2 files changed, 3 insertions(+)
+
+diff --git a/configs/releng/airootfs/root/.ssh/authorized_keys b/configs/releng/airootfs/root/.ssh/authorized_keys
+new file mode 100644
+index 0000000..09df4f0
+--- /dev/null
++++ b/configs/releng/airootfs/root/.ssh/authorized_keys
+@@ -0,0 +1 @@
++ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHzbb76/TEhlX8iPth0+ZppUmnXlKuY64iNqInPntJix
+\ No newline at end of file
+diff --git a/configs/releng/profiledef.sh b/configs/releng/profiledef.sh
+index 495aa9c..d0b67e6 100644
+--- a/configs/releng/profiledef.sh
++++ b/configs/releng/profiledef.sh
+@@ -19,6 +19,8 @@ airootfs_image_tool_options=('-comp' 'zstd' '-Xcompression-level' '1' '-b' '1M')
+ file_permissions=(
+   ["/etc/shadow"]="0:0:400"
+   ["/root"]="0:0:750"
++  ["/root/.ssh"]="0:0:0700"
++  ["/root/.ssh/authorized_keys"]="0:0:0600"
+   ["/root/.automated_script.sh"]="0:0:755"
+   ["/root/.gnupg"]="0:0:700"
+   ["/usr/local/bin/choose-mirror"]="0:0:755"
+-- 
+2.42.0
+

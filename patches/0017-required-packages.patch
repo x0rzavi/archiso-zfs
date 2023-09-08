@@ -1,0 +1,71 @@
+From a5989c16206ee1b4739d1198bbafd5d1f8808160 Mon Sep 17 00:00:00 2001
+From: Avishek Sen <x0rzavi@gmail.com>
+Date: Fri, 8 Sep 2023 18:15:57 +0530
+Subject: [PATCH 17/18] required packages
+
+Signed-off-by: Avishek Sen <x0rzavi@gmail.com>
+---
+ configs/releng/packages.x86_64 | 45 ++++++++++++++++++++++++++++++++--
+ 1 file changed, 43 insertions(+), 2 deletions(-)
+
+diff --git a/configs/releng/packages.x86_64 b/configs/releng/packages.x86_64
+index 519b950..14c4930 100644
+--- a/configs/releng/packages.x86_64
++++ b/configs/releng/packages.x86_64
+@@ -127,8 +127,49 @@ xfsprogs
+ xl2tpd
+ zsh
+ 
+-# needs chaotic-AUR GPG keys on build machine
++# needs chaotic-AUR repo GPG keys on build machine
+ linux-cachyos
+ linux-cachyos-headers
++chaotic-keyring
++chaotic-mirrorlist
++ryzenadj-git
++zenpower3-dkms
++zenmonitor3-git
+ 
+-archzfs-dkms-git
+\ No newline at end of file
++# needs archzfs repo GPG keys on build machine
++# archzfs-linux-git
++
++# core
++archzfs-dkms-git
++hyprland
++paru
++nbfc-linux
++
++# fonts
++noto-fonts
++noto-fonts-cjk
++noto-fonts-emoji
++
++# drivers
++mesa
++libva-mesa-driver
++vulkan-radeon
++xf86-video-amdgpu
++
++# sound
++pipewire
++pipewire-alsa
++pipewire-audio
++pipewire-pulse
++pipewire-jack
++wireplumber
++
++# utility
++aria2
++btop
++byobu
++fastfetch
++firefox
++neovim
++p7zip
++kitty
+\ No newline at end of file
+-- 
+2.42.0
+

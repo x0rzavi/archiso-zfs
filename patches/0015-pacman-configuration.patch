@@ -1,0 +1,32 @@
+From 0a462d5b6d6212066135b7db849e729dfbb5b802 Mon Sep 17 00:00:00 2001
+From: Avishek Sen <x0rzavi@gmail.com>
+Date: Fri, 8 Sep 2023 13:40:28 +0530
+Subject: [PATCH 15/18] pacman configuration
+
+Signed-off-by: Avishek Sen <x0rzavi@gmail.com>
+---
+ configs/releng/pacman.conf | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/configs/releng/pacman.conf b/configs/releng/pacman.conf
+index b55f799..78caec8 100644
+--- a/configs/releng/pacman.conf
++++ b/configs/releng/pacman.conf
+@@ -30,12 +30,12 @@ Architecture = auto
+ 
+ # Misc options
+ #UseSyslog
+-#Color
++Color
+ #NoProgressBar
+ # We cannot check disk space from within a chroot environment
+ #CheckSpace
+ #VerbosePkgLists
+-ParallelDownloads = 5
++ParallelDownloads = 15
+ 
+ # By default, pacman accepts packages signed by keys that its local keyring
+ # trusts (see pacman-key and its man page), as well as unsigned packages.
+-- 
+2.42.0
+
