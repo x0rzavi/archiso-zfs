@@ -42,12 +42,12 @@ jobs:
           pacman -Syyu archiso dash paru base-devel --noconfirm
           time ./scripts/build.sh
 
-      # - name: Create release tags
-      #   run: |
-      #     echo "filePath=out/$(ls out)" >> $GITHUB_ENV
-      #     echo "fileName=$(ls out)" >> $GITHUB_ENV
-      #     echo "fileTag=$(date +%d-%m-%Y-%H-%M)" >> $GITHUB_ENV
-      #
+      - name: Create release tags
+        run: |
+          echo "filePath=$(find archiso-base/out -type f)" >> $GITHUB_ENV
+          echo "fileName=$(find archiso-base/out -type f -exec basename {} \;)" >> $GITHUB_ENV
+          echo "fileTag=$(grep 'Version' scripts/build.sh | cut -d ' ' -f 3)" >> $GITHUB_ENV
+      
       # - name: Release ArchISO
       #   uses: softprops/action-gh-release@v1
       #   with:

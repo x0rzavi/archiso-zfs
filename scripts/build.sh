@@ -1,6 +1,7 @@
 #!/bin/env dash
 
 # Description: Automate building the ISO
+# Version: v1.0
 
 # Safer script
 set -o errexit
