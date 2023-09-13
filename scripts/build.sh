@@ -12,10 +12,10 @@ parent=$(pwd)
 
 # Cleanup
 cleanup () {
-    rm -fr archiso-base work out
+    rm -fr "$parent"/archiso-base "$parent"/work "$parent"/out
 }
 
-# Fetch and setup files
+# Fetch and patch files
 setup () {
     git clone https://github.com/x0rzavi/archiso-zfs.git --branch base --depth=1 archiso-base
     cd "$parent"/archiso-base
@@ -30,7 +30,8 @@ repo () {
 
 # Build the ISO
 build () {
-    sudo mkarchiso -v "$parent"/archiso-base/configs/releng
+    cd "$parent"/archiso-base # to fix errors while creating temporary files
+    sudo mkarchiso -v configs/releng
 }
 
 # Actually do stuffs
