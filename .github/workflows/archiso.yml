@@ -47,10 +47,11 @@ jobs:
           echo "filePath=$(find archiso-base/out -type f)" >> $GITHUB_ENV
           echo "fileName=$(find archiso-base/out -type f -exec basename {} \;)" >> $GITHUB_ENV
           echo "fileTag=$(grep 'Version' scripts/build.sh | cut -d ' ' -f 3)" >> $GITHUB_ENV
+          echo ${{ env.filetag }}
       
-      # - name: Release ArchISO
-      #   uses: softprops/action-gh-release@v1
-      #   with:
-      #     files: ${{ env.filePath }}
-      #     name: ${{ env.fileName }}
-      #     tag_name: ${{ env.fileTag }}
+      - name: Release ArchISO
+        uses: softprops/action-gh-release@v1
+        with:
+          files: ${{ env.filePath }}
+          name: ${{ env.fileName }}
+          tag_name: ${{ env.fileTag }}
