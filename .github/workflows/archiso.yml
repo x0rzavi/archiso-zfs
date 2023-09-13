@@ -15,8 +15,10 @@ jobs:
       - name: Checkout files
         uses: actions/checkout@v4
 
-      - name: Edit pacman config
-        run: sed -i 's/#ParallelDownloads.*/ParallelDownloads = 20/' /etc/pacman.conf
+      - name: Edit pacman and makepkg config
+        run: |
+          sed -i 's|#ParallelDownloads.*|ParallelDownloads = 20|' /etc/pacman.conf
+          sed -i 's|#MAKEFLAGS.*|MAKEFLAGS="j4"|' /etc/makepkg.conf
 
       - name: Init pacman keyring
         run: pacman-key --init
