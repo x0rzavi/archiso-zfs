@@ -1,7 +1,7 @@
-From 3d353c1003d3f747f285e2314a70af0daa7e5a11 Mon Sep 17 00:00:00 2001
+From 486ecfa480fcf683caca898274c3cac3c3868250 Mon Sep 17 00:00:00 2001
 From: Avishek Sen <x0rzavi@gmail.com>
-Date: Sat, 16 Sep 2023 09:08:21 +0530
-Subject: [PATCH 2/2] Ryzenadj script
+Date: Sun, 17 Sep 2023 10:44:58 +0530
+Subject: [PATCH] Ryzenadj script
 
 Signed-off-by: Avishek Sen <x0rzavi@gmail.com>
 ---
@@ -11,7 +11,7 @@ Signed-off-by: Avishek Sen <x0rzavi@gmail.com>
 
 diff --git a/configs/releng/airootfs/usr/local/bin/mode b/configs/releng/airootfs/usr/local/bin/mode
 new file mode 100755
-index 0000000..b4ea8c6
+index 0000000..a85a73e
 --- /dev/null
 +++ b/configs/releng/airootfs/usr/local/bin/mode
 @@ -0,0 +1,73 @@
@@ -26,10 +26,10 @@ index 0000000..b4ea8c6
 +
 +performance () {
 +    ryzenadj --stapm-limit=25000 --fast-limit=25000 --slow-limit=25000 \
-+    		--slow-time=128 --stapm-time=3600 --tctl-temp=77 \
-+    		--vrm-current=180000 --vrmmax-current=180000 \
-+    		--vrmsoc-current=180000 --vrmsocmax-current=180000 \
-+    		--min-gfxclk=1000 --max-performance
++			--slow-time=128 --stapm-time=3600 --tctl-temp=77 \
++			--vrm-current=180000 --vrmmax-current=180000 \
++			--vrmsoc-current=180000 --vrmsocmax-current=180000 \
++			--min-gfxclk=1000 --max-performance
 +    echo 1 > /sys/devices/system/cpu/cpufreq/boost
 +    #amdctl -p0 -v124
 +    #amdctl -p1 -v96 -f102   #Default
@@ -76,7 +76,7 @@ index 0000000..b4ea8c6
 +}
 +
 +if [ "$(id -u)" -eq 0 ]
-+then 
++then
 +	getopts bpudi opt
 +	case ${opt} in
 +		(b) battery;;
