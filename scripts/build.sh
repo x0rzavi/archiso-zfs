@@ -32,11 +32,15 @@ repo () {
 # Build the ISO
 build () {
     cd "$parent"/archiso-base # to fix errors while creating temporary files
-    sudo mkarchiso -v configs/releng
+    mkarchiso -v configs/releng
 }
 
 # Actually do stuffs
-cleanup
-setup
-repo
-build
+if [ "$(id -u)" -eq 0 ] # require root
+then 
+        cleanup
+        setup
+        repo
+        build
+else printf '%s\n' 'Root priveleges are required!'
+fi

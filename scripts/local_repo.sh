@@ -27,7 +27,7 @@ fetch () {
 build () {
     for dir in "$parent"/build/*; do
         cd "$dir"
-        env EUID=1 makepkg -s
+        env EUID=1 makepkg -s # hack to bypass denial if root detected
         mv "$dir"/*.pkg.tar.zst "$parent"/repo
     done
 }
