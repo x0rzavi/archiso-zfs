@@ -1,18 +1,18 @@
-From ba0d8eb10d644593be5fd64576e99230cc9cc4e8 Mon Sep 17 00:00:00 2001
+From 06be3fedf16e56df9a5ea13448dfaadf9f961b40 Mon Sep 17 00:00:00 2001
 From: Avishek Sen <x0rzavi@gmail.com>
-Date: Sun, 17 Sep 2023 10:40:10 +0530
+Date: Sun, 8 Oct 2023 09:54:27 +0530
 Subject: [PATCH] Required packages
 
 Signed-off-by: Avishek Sen <x0rzavi@gmail.com>
 ---
- configs/releng/packages.x86_64 | 46 ++++++++++++++++++++++++++++++++--
- 1 file changed, 44 insertions(+), 2 deletions(-)
+ configs/releng/packages.x86_64 | 47 ++++++++++++++++++++++++++++++++--
+ 1 file changed, 45 insertions(+), 2 deletions(-)
 
 diff --git a/configs/releng/packages.x86_64 b/configs/releng/packages.x86_64
-index 519b950..dc77a98 100644
+index 519b950..df05a92 100644
 --- a/configs/releng/packages.x86_64
 +++ b/configs/releng/packages.x86_64
-@@ -127,8 +127,50 @@ xfsprogs
+@@ -127,8 +127,51 @@ xfsprogs
  xl2tpd
  zsh
  
@@ -23,6 +23,7 @@ index 519b950..dc77a98 100644
 +chaotic-keyring
 +chaotic-mirrorlist
 +ryzenadj-git
++ryzen_smu-dkms-git
 +zenpower3-dkms
 +zenmonitor3-git
  
