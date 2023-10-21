@@ -1,7 +1,7 @@
-From 7e0212e0c16a1f4745e6778ffe81fcb73bf437d8 Mon Sep 17 00:00:00 2001
+From a299f7e2640259d483a8dbf17abbf1c610895e53 Mon Sep 17 00:00:00 2001
 From: Avishek Sen <x0rzavi@gmail.com>
-Date: Fri, 8 Sep 2023 14:37:05 +0530
-Subject: [PATCH 16/18] nbfc-linux zenmonitor setup
+Date: Sat, 21 Oct 2023 09:50:59 +0530
+Subject: [PATCH] nbfc-linux zenmonitor setup
 
 Signed-off-by: Avishek Sen <x0rzavi@gmail.com>
 ---
@@ -27,26 +27,26 @@ index 0000000..853c876
 +/usr/lib/systemd/system/nbfc_service.service
 \ No newline at end of file
 diff --git a/configs/releng/grub/grub.cfg b/configs/releng/grub/grub.cfg
-index fa80b24..10bbbb7 100644
+index aba02a1..1ddd159 100644
 --- a/configs/releng/grub/grub.cfg
 +++ b/configs/releng/grub/grub.cfg
-@@ -45,7 +45,7 @@ play 600 988 1 1319 4
- menuentry "Arch Linux install medium (x86_64, UEFI)" --class arch --class gnu-linux --class gnu --class os --id 'archlinux' {
+@@ -63,7 +63,7 @@ timeout_style=menu
+ menuentry "Arch Linux install medium (%ARCH%, ${archiso_platform})" --class arch --class gnu-linux --class gnu --class os --id 'archlinux' {
      set gfxpayload=keep
-     # linux /%INSTALL_DIR%/boot/x86_64/vmlinuz-linux archisobasedir=%INSTALL_DIR% archisodevice=UUID=${ARCHISO_UUID}
--    linux /%INSTALL_DIR%/boot/x86_64/vmlinuz-linux-cachyos archisobasedir=%INSTALL_DIR% archisodevice=UUID=${ARCHISO_UUID} cow_spacesize=6G module_blacklist=sp5100_tco,iTCO_wdt nmi_watchdog=0 nowatchdog mitigations=off
-+    linux /%INSTALL_DIR%/boot/x86_64/vmlinuz-linux-cachyos archisobasedir=%INSTALL_DIR% archisodevice=UUID=${ARCHISO_UUID} cow_spacesize=6G module_blacklist=sp5100_tco,iTCO_wdt,k10temp nmi_watchdog=0 nowatchdog mitigations=off
-     # initrd /%INSTALL_DIR%/boot/intel-ucode.img /%INSTALL_DIR%/boot/amd-ucode.img /%INSTALL_DIR%/boot/x86_64/initramfs-linux.img
-     initrd /%INSTALL_DIR%/boot/intel-ucode.img /%INSTALL_DIR%/boot/amd-ucode.img /%INSTALL_DIR%/boot/x86_64/initramfs-linux-cachyos.img
+     # linux /%INSTALL_DIR%/boot/%ARCH%/vmlinuz-linux archisobasedir=%INSTALL_DIR% archisodevice=UUID=${ARCHISO_UUID}
+-    linux /%INSTALL_DIR%/boot/%ARCH%/vmlinuz-linux-cachyos archisobasedir=%INSTALL_DIR% archisodevice=UUID=${ARCHISO_UUID} cow_spacesize=6G module_blacklist=sp5100_tco,iTCO_wdt nmi_watchdog=0 nowatchdog mitigations=off
++    linux /%INSTALL_DIR%/boot/%ARCH%/vmlinuz-linux-cachyos archisobasedir=%INSTALL_DIR% archisodevice=UUID=${ARCHISO_UUID} cow_spacesize=6G module_blacklist=sp5100_tco,iTCO_wdt,k10temp nmi_watchdog=0 nowatchdog mitigations=off
+     # initrd /%INSTALL_DIR%/boot/intel-ucode.img /%INSTALL_DIR%/boot/amd-ucode.img /%INSTALL_DIR%/boot/%ARCH%/initramfs-linux.img
+     initrd /%INSTALL_DIR%/boot/intel-ucode.img /%INSTALL_DIR%/boot/amd-ucode.img /%INSTALL_DIR%/boot/%ARCH%/initramfs-linux-cachyos.img
  }
-@@ -53,7 +53,7 @@ menuentry "Arch Linux install medium (x86_64, UEFI)" --class arch --class gnu-li
- menuentry "Arch Linux install medium with speakup screen reader (x86_64, UEFI)" --hotkey s --class arch --class gnu-linux --class gnu --class os --id 'archlinux-accessibility' {
+@@ -71,7 +71,7 @@ menuentry "Arch Linux install medium (%ARCH%, ${archiso_platform})" --class arch
+ menuentry "Arch Linux install medium with speakup screen reader (%ARCH%, ${archiso_platform})" --hotkey s --class arch --class gnu-linux --class gnu --class os --id 'archlinux-accessibility' {
      set gfxpayload=keep
-     # linux /%INSTALL_DIR%/boot/x86_64/vmlinuz-linux archisobasedir=%INSTALL_DIR% archisodevice=UUID=${ARCHISO_UUID} accessibility=on
--    linux /%INSTALL_DIR%/boot/x86_64/vmlinuz-linux-cachyos archisobasedir=%INSTALL_DIR% archisodevice=UUID=${ARCHISO_UUID} accessibility=on cow_spacesize=6G module_blacklist=sp5100_tco,iTCO_wdt nmi_watchdog=0 nowatchdog mitigations=off
-+    linux /%INSTALL_DIR%/boot/x86_64/vmlinuz-linux-cachyos archisobasedir=%INSTALL_DIR% archisodevice=UUID=${ARCHISO_UUID} accessibility=on cow_spacesize=6G module_blacklist=sp5100_tco,iTCO_wdt,k10temp nmi_watchdog=0 nowatchdog mitigations=off
-     # initrd /%INSTALL_DIR%/boot/intel-ucode.img /%INSTALL_DIR%/boot/amd-ucode.img /%INSTALL_DIR%/boot/x86_64/initramfs-linux.img
-     initrd /%INSTALL_DIR%/boot/intel-ucode.img /%INSTALL_DIR%/boot/amd-ucode.img /%INSTALL_DIR%/boot/x86_64/initramfs-linux-cachyos.img
+     # linux /%INSTALL_DIR%/boot/%ARCH%/vmlinuz-linux archisobasedir=%INSTALL_DIR% archisodevice=UUID=${ARCHISO_UUID} accessibility=on
+-    linux /%INSTALL_DIR%/boot/%ARCH%/vmlinuz-linux-cachyos archisobasedir=%INSTALL_DIR% archisodevice=UUID=${ARCHISO_UUID} accessibility=on cow_spacesize=6G module_blacklist=sp5100_tco,iTCO_wdt nmi_watchdog=0 nowatchdog mitigations=off
++    linux /%INSTALL_DIR%/boot/%ARCH%/vmlinuz-linux-cachyos archisobasedir=%INSTALL_DIR% archisodevice=UUID=${ARCHISO_UUID} accessibility=on cow_spacesize=6G module_blacklist=sp5100_tco,iTCO_wdt,k10temp nmi_watchdog=0 nowatchdog mitigations=off
+     # initrd /%INSTALL_DIR%/boot/intel-ucode.img /%INSTALL_DIR%/boot/amd-ucode.img /%INSTALL_DIR%/boot/%ARCH%/initramfs-linux.img
+     initrd /%INSTALL_DIR%/boot/intel-ucode.img /%INSTALL_DIR%/boot/amd-ucode.img /%INSTALL_DIR%/boot/%ARCH%/initramfs-linux-cachyos.img
  }
 -- 
 2.42.0

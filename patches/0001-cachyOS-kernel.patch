@@ -1,7 +1,7 @@
-From f3afd299e2ef7500ca1d744984a194836bc74fb9 Mon Sep 17 00:00:00 2001
+From 993566de9ab6b57fa0478805dab9dd6362fe8686 Mon Sep 17 00:00:00 2001
 From: Avishek Sen <x0rzavi@gmail.com>
-Date: Tue, 5 Sep 2023 23:44:29 +0530
-Subject: [PATCH 01/18] cachyOS kernel
+Date: Sat, 21 Oct 2023 09:29:29 +0530
+Subject: [PATCH] cachyOS kernel
 
 Signed-off-by: Avishek Sen <x0rzavi@gmail.com>
 ---
@@ -12,7 +12,7 @@ Signed-off-by: Avishek Sen <x0rzavi@gmail.com>
 
 diff --git a/configs/releng/airootfs/etc/mkinitcpio.d/linux-cachyos.preset b/configs/releng/airootfs/etc/mkinitcpio.d/linux-cachyos.preset
 new file mode 100644
-index 0000000..538dab8
+index 0000000..b003d7e
 --- /dev/null
 +++ b/configs/releng/airootfs/etc/mkinitcpio.d/linux-cachyos.preset
 @@ -0,0 +1,8 @@
@@ -24,47 +24,48 @@ index 0000000..538dab8
 +archiso_config='/etc/mkinitcpio.conf.d/archiso.conf'
 +
 +archiso_image="/boot/initramfs-linux-cachyos.img"
+\ No newline at end of file
 diff --git a/configs/releng/grub/grub.cfg b/configs/releng/grub/grub.cfg
-index 034bdb4..bbf902d 100644
+index 3486753..abc89b1 100644
 --- a/configs/releng/grub/grub.cfg
 +++ b/configs/releng/grub/grub.cfg
-@@ -44,14 +44,18 @@ play 600 988 1 1319 4
+@@ -62,14 +62,18 @@ timeout_style=menu
  
- menuentry "Arch Linux install medium (x86_64, UEFI)" --class arch --class gnu-linux --class gnu --class os --id 'archlinux' {
+ menuentry "Arch Linux install medium (%ARCH%, ${archiso_platform})" --class arch --class gnu-linux --class gnu --class os --id 'archlinux' {
      set gfxpayload=keep
--    linux /%INSTALL_DIR%/boot/x86_64/vmlinuz-linux archisobasedir=%INSTALL_DIR% archisodevice=UUID=${ARCHISO_UUID}
--    initrd /%INSTALL_DIR%/boot/intel-ucode.img /%INSTALL_DIR%/boot/amd-ucode.img /%INSTALL_DIR%/boot/x86_64/initramfs-linux.img
-+    # linux /%INSTALL_DIR%/boot/x86_64/vmlinuz-linux archisobasedir=%INSTALL_DIR% archisodevice=UUID=${ARCHISO_UUID}
-+    linux /%INSTALL_DIR%/boot/x86_64/vmlinuz-linux-cachyos archisobasedir=%INSTALL_DIR% archisodevice=UUID=${ARCHISO_UUID}
-+    # initrd /%INSTALL_DIR%/boot/intel-ucode.img /%INSTALL_DIR%/boot/amd-ucode.img /%INSTALL_DIR%/boot/x86_64/initramfs-linux.img
-+    initrd /%INSTALL_DIR%/boot/intel-ucode.img /%INSTALL_DIR%/boot/amd-ucode.img /%INSTALL_DIR%/boot/x86_64/initramfs-linux-cachyos.img
+-    linux /%INSTALL_DIR%/boot/%ARCH%/vmlinuz-linux archisobasedir=%INSTALL_DIR% archisodevice=UUID=${ARCHISO_UUID}
+-    initrd /%INSTALL_DIR%/boot/intel-ucode.img /%INSTALL_DIR%/boot/amd-ucode.img /%INSTALL_DIR%/boot/%ARCH%/initramfs-linux.img
++    # linux /%INSTALL_DIR%/boot/%ARCH%/vmlinuz-linux archisobasedir=%INSTALL_DIR% archisodevice=UUID=${ARCHISO_UUID}
++    linux /%INSTALL_DIR%/boot/%ARCH%/vmlinuz-linux-cachyos archisobasedir=%INSTALL_DIR% archisodevice=UUID=${ARCHISO_UUID}
++    # initrd /%INSTALL_DIR%/boot/intel-ucode.img /%INSTALL_DIR%/boot/amd-ucode.img /%INSTALL_DIR%/boot/%ARCH%/initramfs-linux.img
++    initrd /%INSTALL_DIR%/boot/intel-ucode.img /%INSTALL_DIR%/boot/amd-ucode.img /%INSTALL_DIR%/boot/%ARCH%/initramfs-linux-cachyos.img
  }
  
- menuentry "Arch Linux install medium with speakup screen reader (x86_64, UEFI)" --hotkey s --class arch --class gnu-linux --class gnu --class os --id 'archlinux-accessibility' {
+ menuentry "Arch Linux install medium with speakup screen reader (%ARCH%, ${archiso_platform})" --hotkey s --class arch --class gnu-linux --class gnu --class os --id 'archlinux-accessibility' {
      set gfxpayload=keep
--    linux /%INSTALL_DIR%/boot/x86_64/vmlinuz-linux archisobasedir=%INSTALL_DIR% archisodevice=UUID=${ARCHISO_UUID} accessibility=on
--    initrd /%INSTALL_DIR%/boot/intel-ucode.img /%INSTALL_DIR%/boot/amd-ucode.img /%INSTALL_DIR%/boot/x86_64/initramfs-linux.img
-+    # linux /%INSTALL_DIR%/boot/x86_64/vmlinuz-linux archisobasedir=%INSTALL_DIR% archisodevice=UUID=${ARCHISO_UUID} accessibility=on
-+    linux /%INSTALL_DIR%/boot/x86_64/vmlinuz-linux-cachyos archisobasedir=%INSTALL_DIR% archisodevice=UUID=${ARCHISO_UUID} accessibility=on
-+    # initrd /%INSTALL_DIR%/boot/intel-ucode.img /%INSTALL_DIR%/boot/amd-ucode.img /%INSTALL_DIR%/boot/x86_64/initramfs-linux.img
-+    initrd /%INSTALL_DIR%/boot/intel-ucode.img /%INSTALL_DIR%/boot/amd-ucode.img /%INSTALL_DIR%/boot/x86_64/initramfs-linux-cachyos.img
+-    linux /%INSTALL_DIR%/boot/%ARCH%/vmlinuz-linux archisobasedir=%INSTALL_DIR% archisodevice=UUID=${ARCHISO_UUID} accessibility=on
+-    initrd /%INSTALL_DIR%/boot/intel-ucode.img /%INSTALL_DIR%/boot/amd-ucode.img /%INSTALL_DIR%/boot/%ARCH%/initramfs-linux.img
++    # linux /%INSTALL_DIR%/boot/%ARCH%/vmlinuz-linux archisobasedir=%INSTALL_DIR% archisodevice=UUID=${ARCHISO_UUID} accessibility=on
++    linux /%INSTALL_DIR%/boot/%ARCH%/vmlinuz-linux-cachyos archisobasedir=%INSTALL_DIR% archisodevice=UUID=${ARCHISO_UUID} accessibility=on
++    # initrd /%INSTALL_DIR%/boot/intel-ucode.img /%INSTALL_DIR%/boot/amd-ucode.img /%INSTALL_DIR%/boot/%ARCH%/initramfs-linux.img
++    initrd /%INSTALL_DIR%/boot/intel-ucode.img /%INSTALL_DIR%/boot/amd-ucode.img /%INSTALL_DIR%/boot/%ARCH%/initramfs-linux-cachyos.img
  }
  
- if [ "${grub_platform}" == "efi" ]; then
+ 
 diff --git a/configs/releng/packages.x86_64 b/configs/releng/packages.x86_64
-index 6b6cf0c..2f8fda0 100644
+index feefa24..690e739 100644
 --- a/configs/releng/packages.x86_64
 +++ b/configs/releng/packages.x86_64
-@@ -6,7 +6,7 @@ b43-fwcutter
- base
+@@ -7,7 +7,7 @@ base
  bind
+ bolt
  brltty
 -broadcom-wl
 +# broadcom-wl
  btrfs-progs
  clonezilla
  cloud-init
-@@ -48,7 +48,7 @@ less
+@@ -49,7 +49,7 @@ less
  lftp
  libfido2
  libusb-compat
@@ -73,7 +74,7 @@ index 6b6cf0c..2f8fda0 100644
  linux-atm
  linux-firmware
  linux-firmware-marvell
-@@ -116,7 +116,7 @@ usb_modeswitch
+@@ -117,7 +117,7 @@ usb_modeswitch
  usbmuxd
  usbutils
  vim
@@ -82,7 +83,7 @@ index 6b6cf0c..2f8fda0 100644
  vpnc
  wezterm-terminfo
  wireless-regdb
-@@ -126,3 +126,7 @@ wvdial
+@@ -127,3 +127,7 @@ wvdial
  xfsprogs
  xl2tpd
  zsh
