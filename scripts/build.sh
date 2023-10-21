@@ -1,7 +1,7 @@
 #!/bin/env dash
 
 # Description: Automate building the ISO
-# Version: v1.0
+# Version: v1.1
 
 # Safer script
 set -o errexit
@@ -20,7 +20,8 @@ cleanup () {
 setup () {
     git clone https://github.com/x0rzavi/archiso-zfs.git --branch base --depth=1 archiso-base
     cd "$parent"/archiso-base
-    git apply "$parent"/patches/*
+    printf '\n%s\n' 'Applying Patches!'
+    git apply "$parent"/patches/* && printf '\n%s\n' 'Patches Applied!'
 }
 
 # Setup local repo
